@@ -5,7 +5,7 @@ import * as S from "./styles";
 import type { ColumnsType } from "antd/es/table";
 
 export const ProductsPage: React.FC = () => {
-  const [form] = Form.useForm();
+  //const [form] = Form.useForm();
   const { Search } = Input;
   const { RangePicker } = DatePicker;
 
