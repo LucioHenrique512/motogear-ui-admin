@@ -1,6 +1,6 @@
 import { theme } from "antd";
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { MainLayout } from "./layouts";
 import { OrdersPage, ProductsPage } from "./pages";
@@ -10,6 +10,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
+      {
+        path: "/",
+        element: <Navigate to="/products" />,
+      },
       {
         path: "products",
         element: <ProductsPage />,
