@@ -1,5 +1,5 @@
 import React from "react";
 
-export const ProductsPage: React.FC = () => {
-  return <h1>Olá de produtos</h1>;
+export const OrdersPage: React.FC = () => {
+  return <h1>Olá de Pedidos</h1>;
 };

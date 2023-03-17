@@ -1,2 +1,2 @@
-export {ProductsPage} from './orderspage';
-export {OrdersPage} from './productspage';
+export {OrdersPage} from './orderspage';
+export {ProductsPage} from './productspage';
