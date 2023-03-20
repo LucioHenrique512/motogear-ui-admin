@@ -3,7 +3,7 @@ import { PieChartOutlined, DropboxOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { ContentContainer } from "./styles";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -34,8 +34,11 @@ export const MainLayout: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const {pathname} = useLocation()
 
   const navigate = useNavigate();
+
+  const currentPath = pathname.replace("/","")
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -53,9 +56,9 @@ export const MainLayout: React.FC = () => {
         />
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
           mode="vertical"
           items={items}
+          selectedKeys={[currentPath]}
           onClick={(evnt) => {
             navigate(evnt.key);
           }}

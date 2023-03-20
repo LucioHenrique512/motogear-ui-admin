@@ -75,12 +75,6 @@ export const ProductsPage: React.FC = () => {
       value: `R$ 1000,00`,
     },
     {
-      key: 0,
-      id: "1",
-      description: `Relâmpago Marquinhos`,
-      value: `R$ 1000,00`,
-    },
-    {
       key: 4,
       id: "4",
       description: `Relâmpago Marquinhos`,
