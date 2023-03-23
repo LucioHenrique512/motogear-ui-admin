@@ -62,7 +62,7 @@ export const ProductsPage: React.FC = () => {
           </Form>
         </S.Header>
         <S.Content>
-          <ProductsTable />
+          <ProductsTable onEditClick={() => setOpenProductDrawer(true)} />
         </S.Content>
       </S.Container>
       <ProductDrawer open={openProductDrawer} setOpen={setOpenProductDrawer} />

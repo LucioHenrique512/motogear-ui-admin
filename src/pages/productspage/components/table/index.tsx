@@ -1,116 +1,90 @@
-import React, { useState } from 'react'
-import { Table } from 'antd'
-import { ColumnsType } from 'antd/es/table';
+import React, { useState } from "react";
+import { Button, Table } from "antd";
+import { ColumnsType } from "antd/es/table";
+import { EditOutlined } from "@ant-design/icons";
+import { faker } from "@faker-js/faker";
 
 interface DataType {
-    key: React.Key;
-    id: string;
-    description: string;
-    value: string;
+  key: React.Key;
+  id: string;
+  description: string;
+  value: string;
+  quantity: number;
+}
+
+type IProductsTable = {
+  onEditClick: (id: string) => void;
+};
+
+export const ProductsTable: React.FC<IProductsTable> = ({ onEditClick }) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "id",
+      dataIndex: "id",
+      width: 90,
+      fixed: "left",
+    },
+    {
+      title: "Descrição",
+      dataIndex: "description",
+    },
+    {
+      title: "Valor",
+      dataIndex: "value",
+    },
+    {
+      title: "Estoque",
+      dataIndex: "quantity",
+    },
+    {
+      title: "Action",
+      key: "operation",
+      fixed: "right",
+      width: 100,
+      render: () => (
+        <Button onClick={() => onEditClick("0")} type="default">
+          <EditOutlined />
+        </Button>
+      ),
+    },
+  ];
+
+  const data: DataType[] = [];
+
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      key: i,
+      id: i.toString(),
+      description: faker.name.fullName(),
+      value: `R$ ${(Math.random() * 1000).toLocaleString("pt-br", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      })}`,
+      quantity: Math.round(Math.random() * 1000),
+    });
   }
 
-export const ProductsTable:React.FC =()=>{
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-      console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-      setSelectedRowKeys(newSelectedRowKeys);
-    };
-
-    const columns: ColumnsType<DataType> = [
-        {
-          title: "id",
-          dataIndex: "id",
-        },
-        {
-          title: "Descrição",
-          dataIndex: "description",
-        },
-        {
-          title: "Valor",
-          dataIndex: "value",
-        },
-      ];
-    
-      const data: DataType[] = [
-        {
-          key: 0,
-          id: "0",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },
-        {
-          key: 1,
-          id: "1",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },
-        {
-          key: 2,
-          id: "2",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },
-        {
-          key: 3,
-          id: "3",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },
-        {
-          key: 4,
-          id: "4",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 5,
-          id: "5",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 6,
-          id: "6",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 7,
-          id: "7",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 8,
-          id: "8",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 9,
-          id: "9",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 10,
-          id: "10",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },{
-          key: 11,
-          id: "11",
-          description: `Relâmpago Marquinhos`,
-          value: `R$ 1000,00`,
-        },
-      ];
-
-      const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-      };
-
-    return<Table
-    sticky
-    style={{ width: "100%" }}
-    rowSelection={rowSelection}
-    columns={columns}
-    dataSource={data}
-  />
-}
+  return (
+    <Table
+      sticky
+      style={{ width: "100%" }}
+      rowSelection={rowSelection}
+      columns={columns}
+      dataSource={data}
+      pagination={false}
+      scroll={{ x: 800 }}
+    />
+  );
+};
